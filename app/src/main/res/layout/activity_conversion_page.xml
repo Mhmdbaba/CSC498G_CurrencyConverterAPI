@@ -80,7 +80,7 @@
         app:srcCompat="@drawable/dollar" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_hand"
         android:layout_width="180dp"
         android:layout_height="131dp"
         android:layout_marginBottom="39dp"
@@ -89,6 +89,5 @@
         app:layout_constraintHorizontal_bias="0.389"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/hand" />
+        app:layout_constraintVertical_bias="1.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
