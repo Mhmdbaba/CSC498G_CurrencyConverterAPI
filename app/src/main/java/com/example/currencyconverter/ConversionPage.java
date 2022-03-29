@@ -41,7 +41,7 @@ public class ConversionPage extends AppCompatActivity {
     private TextView text_view;
     ImageView img;
 
-    public class Query extends AsyncTask<String, Void, String>{
+    public class DownloadTask extends AsyncTask <String, Void, String>{
         @Override
         protected String doInBackground(String... urls) {
             String result = "";
@@ -77,7 +77,13 @@ public class ConversionPage extends AppCompatActivity {
 
             try{
                 JSONObject json = new JSONObject(s);
-                String creayed_at = json.getString("created_at");
+
+                String lbp_buy = json.getString( "buy");
+                Log.i("buy", lbp_buy);
+
+                String lbp_sell = json.getString("sell");
+                Log.i("sell",lbp_sell);
+
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -92,6 +98,9 @@ public class ConversionPage extends AppCompatActivity {
         text_view = (TextView) findViewById(R.id.tv_output);
         img = (ImageView) findViewById(R.id.img_hand);
         String url = "https://localhost:8013/Android/test.php";
+
+        DownloadTask task = new DownloadTask();
+        task.execute(url);
     }
 
     //Function to hide keyboard
@@ -99,7 +108,7 @@ public class ConversionPage extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
     }
-
+    
     public void Button(View view){
         Intent intent = new Intent(this, MainActivity.class);
     }
