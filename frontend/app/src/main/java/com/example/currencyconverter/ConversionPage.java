@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -112,41 +113,51 @@ public class ConversionPage extends AppCompatActivity {
     }
 
     public void Button(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+        //hide the keyboard when pressing button
+        hideKeyboard(view);
+
+        Button btn = (Button) view;
+        if (btn.getTag().toString().equalsIgnoreCase("back")){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if (btn.getTag().toString().equalsIgnoreCase("convert")){
+
+            radio_group = (RadioGroup) findViewById(R.id.radioGroup);
+            radio_button = (RadioButton) findViewById(radio_group.getCheckedRadioButtonId());
+            //get value of selected radio button
+            String curr = radio_button.getText().toString();
+            //get value entered by user
+            input = findViewById(R.id.input_number);
+            //set the source of image
+            img.setImageResource(R.drawable.hand);
+
+            Double output = 0.0;
+            if (curr.equalsIgnoreCase("usd")){ //convert to USD
+                //output = input....
+
+
+                //save to database
+
+                text_view.setText("USD" + output);
+            }
+            else if ( curr.equalsIgnoreCase("lbp")){ //convert to LBP
+                //output = input ...
+
+                //save to database
+
+                text_view.setText("LBP" + output);
+            }
+            else{
+                Toast.makeText(this, "Select a currency", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+
     }
 
     public void Convert (View view){
-        //hide the keyboard when pressing button
-        hideKeyboard(view);
-        radio_group = (RadioGroup) findViewById(R.id.radioGroup);
-        radio_button = (RadioButton) findViewById(radio_group.getCheckedRadioButtonId());
-        //get value of selected radio button
-        String curr = radio_button.getText().toString();
-        //get value entered by user
-        input = findViewById(R.id.input_number);
-        //set the source of image
-        img.setImageResource(R.drawable.hand);
 
-        Double output = 0.0;
-        if (curr.equalsIgnoreCase("usd")){ //convert to USD
-            //output = input....
-
-
-            //save to database
-
-            text_view.setText("USD" + output);
-        }
-        else if ( curr.equalsIgnoreCase("lbp")){ //convert to LBP
-            //output = input ...
-
-            //save to database
-
-            text_view.setText("LBP" + output);
-        }
-        else{
-            Toast.makeText(this, "Select a currency", Toast.LENGTH_LONG).show();
-            return;
-        }
 
 
     }
