@@ -1,4 +1,5 @@
 <?php
+include("LiraRate.php");
 
 $server = "localhost";
 $username= "root";
@@ -8,14 +9,27 @@ $db_name= "currencyconverter_db";
 $conn = mysqli_connect($server, $username, $password, $db_name) or die("Connection failed");
 
 
-/*
-connection with database and insert DONE
-include('db_info.php');
+$amount = $_POST["amount"];
+$currency = $_POST["currency"];
+
+$decoded_r = json_decode($myjson);
+
+$rate = $decoded_r["buy"];
+$updated_amount;
+
+if ($currency == "usd") {
+    $updated_amount = $amount/$rate;
+}
+else{
+    $updated_amount = $amount*$rate;
+}
 
 
-$sql = "INSERT INTO HISTORY(rate,lbp, usd) VALUES (25000,25001,1)";
-$input_stmt = $conn->prepare($sql);
-$input_stmt->execute();
-*/
+$query = $mysqli->prepare("INSERT INTO history (rate,lbp,usd) VALUES (?,?,?)");
+$query->bind_param("ddd",$rate,$updated_amount,$amount);
+$query->execute();
+
+echo json_encode($updated_amount);
+
 
 ?>
