@@ -1,5 +1,5 @@
 <?php
-$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t202232919';
+$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t202232922';
 
 $ch = curl_init();
 
@@ -24,15 +24,11 @@ else {
   $buy = $decoded['buy'][$sizebuy-1]['1'];
   $sell = $decoded['sell'][$sizesell-1]['1'];
 
-/*
-  print_r($buy);
-  echo "<br>";
-  print_r($sell);
-  //print_r($sizesell);
-*/
+    //specidy the type of content, which is json
     header("Content-Type: application/json");
     $myobj = array ('buy'=>$buy,'sell'=>$sell);
 
+    //encode the array to json
     $myjson = json_encode($myobj);
 
     echo $myjson;
