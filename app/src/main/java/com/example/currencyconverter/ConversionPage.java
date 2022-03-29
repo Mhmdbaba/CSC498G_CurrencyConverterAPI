@@ -97,7 +97,7 @@ public class ConversionPage extends AppCompatActivity {
         setContentView(R.layout.activity_conversion_page);
         text_view = (TextView) findViewById(R.id.tv_output);
         img = (ImageView) findViewById(R.id.img_hand);
-        String url = "https://localhost:8013/Android/test.php";
+        String url = "https://localhost:8013/Android/LiraRate.php";
 
         DownloadTask task = new DownloadTask();
         task.execute(url);
@@ -108,7 +108,7 @@ public class ConversionPage extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
     }
-    
+
     public void Button(View view){
         Intent intent = new Intent(this, MainActivity.class);
     }
