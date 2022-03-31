@@ -85,8 +85,6 @@ public class ConversionPage extends AppCompatActivity {
                 int lbp_sell = json.getInt("sell");
                 Log.i("sell", String.valueOf(lbp_sell));
 
-
-                //Log.i("buy",json.toString());
             }catch(Exception e){
                 e.printStackTrace();
             }
