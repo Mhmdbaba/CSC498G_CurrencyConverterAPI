@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,6 +42,8 @@ public class ConversionPage extends AppCompatActivity {
     private EditText input;
     private TextView text_view;
     ImageView img;
+    TextView tv_sell;
+    TextView tv_buy;
 
     public class DownloadTask extends AsyncTask <String, Void, String>{
         @Override
@@ -55,6 +58,7 @@ public class ConversionPage extends AppCompatActivity {
 
                 //Read the output of API
                 InputStream in = http.getInputStream();
+
                 InputStreamReader reader = new InputStreamReader(in);
                 int data = reader.read();
 
@@ -68,22 +72,24 @@ public class ConversionPage extends AppCompatActivity {
                 e.printStackTrace();
                 return null;
             }
-
+            //Log.i("Result: ", result);
             return result;
         }
 
         protected void onPostExecute (String s){
-            //Log.i("Result: ", s);
             super.onPostExecute(s);
+            //Log.i("Result: ", s);
 
             try{
                 JSONObject json = new JSONObject(s);
 
-                int lbp_buy = json.getInt("buy");
+                String lbp_buy = json.getString("buy");
                 Log.i("buy", String.valueOf(lbp_buy));
+                tv_buy.setText(lbp_buy);
 
-                int lbp_sell = json.getInt("sell");
+                String lbp_sell = json.getString("sell");
                 Log.i("sell", String.valueOf(lbp_sell));
+                tv_sell.setText(lbp_sell);
 
             }catch(Exception e){
                 e.printStackTrace();
@@ -98,8 +104,10 @@ public class ConversionPage extends AppCompatActivity {
         setContentView(R.layout.activity_conversion_page);
         text_view = (TextView) findViewById(R.id.tv_output);
         img = (ImageView) findViewById(R.id.img_hand);
-        String url = "https://localhost:8013/Android/LiraRate.php";
+        tv_sell = (TextView) findViewById(R.id.tv_sell);
+        tv_buy = (TextView) findViewById(R.id.tv_buy);
 
+        String url = "https://10.21.154.11:8013/Android/LiraRate.php";
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
@@ -151,12 +159,6 @@ public class ConversionPage extends AppCompatActivity {
                 return;
             }
         }
-
-    }
-
-    public void Convert (View view){
-
-
 
     }
 }

@@ -1,5 +1,5 @@
 <?php
-$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t202232922';
+$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t202233118';
 
 $ch = curl_init();
 
