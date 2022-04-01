@@ -2,7 +2,6 @@ package com.example.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,16 +60,14 @@ public class ConversionPage extends AppCompatActivity {
 
                 //Read the output of API
                 InputStream in = http.getInputStream();
-
                 InputStreamReader reader = new InputStreamReader(in);
                 int data = reader.read();
+
                 while(data != -1){
                     char current = (char) data;
                     result += current;
                     data = reader.read();
                 }
-
-
             }catch(Exception e){
                 e.printStackTrace();
                 return null;
@@ -79,13 +77,17 @@ public class ConversionPage extends AppCompatActivity {
 
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-
             try{
-                Log.i("onPostExecute: ",s);
-                
-                /*
-                JSONObject json = new JSONObject(s);
 
+                JSONObject json = new JSONObject(s);
+                String arr = json.getString("buy");
+                //String[] arr = json.getString("buy").split(",");
+                //arr = arr[arr.length - 1].split(",");
+                //String buy = arr[1];
+
+                Log.i("onPostExecute: ", arr.toString());
+
+                /*
                 String lbp_buy = json.getString("buy");
                 Log.i("buy", String.valueOf(lbp_buy));
                 tv_buy.setText(lbp_buy);
@@ -111,7 +113,7 @@ public class ConversionPage extends AppCompatActivity {
         tv_sell = (TextView) findViewById(R.id.tv_sell);
         tv_buy = (TextView) findViewById(R.id.tv_buy);
 
-        String url = "https://lirarate.org/wp-json/lirarate/v2/fuel?currency=LBP&_ver=t20224118";
+        String url = "https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t20224118";
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
