@@ -79,9 +79,10 @@ public class ConversionPage extends AppCompatActivity {
 
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-            Log.i("heree", s);
 
             try{
+                Log.i("onPostExecute: ",s);
+                
                 /*
                 JSONObject json = new JSONObject(s);
 
@@ -110,7 +111,7 @@ public class ConversionPage extends AppCompatActivity {
         tv_sell = (TextView) findViewById(R.id.tv_sell);
         tv_buy = (TextView) findViewById(R.id.tv_buy);
 
-        String url = "https://lirarate.org/wp-json/lirarate/v2/fuel?currency=LBP&_ver=t20224115";
+        String url = "https://lirarate.org/wp-json/lirarate/v2/fuel?currency=LBP&_ver=t20224118";
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
