@@ -33,6 +33,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class ConversionPage extends AppCompatActivity {
 
 
@@ -50,37 +52,37 @@ public class ConversionPage extends AppCompatActivity {
         protected String doInBackground(String... urls) {
             String result = "";
             URL url;
-            HttpURLConnection http;
+            HttpsURLConnection http;
 
             try {
                 url = new URL(urls[0]);
-                http = (HttpURLConnection) url.openConnection();
+                http = (HttpsURLConnection) url.openConnection();
 
                 //Read the output of API
                 InputStream in = http.getInputStream();
 
                 InputStreamReader reader = new InputStreamReader(in);
                 int data = reader.read();
-
                 while(data != -1){
                     char current = (char) data;
                     result += current;
                     data = reader.read();
                 }
 
+
             }catch(Exception e){
                 e.printStackTrace();
                 return null;
             }
-            //Log.i("Result: ", result);
             return result;
         }
 
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-            //Log.i("Result: ", s);
+            Log.i("heree", s);
 
             try{
+                /*
                 JSONObject json = new JSONObject(s);
 
                 String lbp_buy = json.getString("buy");
@@ -90,6 +92,7 @@ public class ConversionPage extends AppCompatActivity {
                 String lbp_sell = json.getString("sell");
                 Log.i("sell", String.valueOf(lbp_sell));
                 tv_sell.setText(lbp_sell);
+                */
 
             }catch(Exception e){
                 e.printStackTrace();
@@ -107,7 +110,7 @@ public class ConversionPage extends AppCompatActivity {
         tv_sell = (TextView) findViewById(R.id.tv_sell);
         tv_buy = (TextView) findViewById(R.id.tv_buy);
 
-        String url = "https://10.21.154.11:8013/Android/LiraRate.php";
+        String url = "https://lirarate.org/wp-json/lirarate/v2/fuel?currency=LBP&_ver=t20224115";
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
