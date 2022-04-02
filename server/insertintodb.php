@@ -9,8 +9,8 @@ $db_name= "currencyconverter_db";
 $conn = mysqli_connect($server, $username, $password, $db_name) or die("Connection failed");
 
 //Get the variables from the user in android studio
-$amount = $_POST["amount"];
-$currency = $_POST["currency"];
+$amount = $_GET["amount"];
+$currency = $_GET["currency"];
 
 //decode json array in LiraRate got from scraping the website
 $decoded_r = json_decode($myjson);

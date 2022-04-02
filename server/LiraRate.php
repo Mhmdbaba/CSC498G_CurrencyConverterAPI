@@ -1,5 +1,13 @@
 <?php
-$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t202233118';
+/*
+this api was done to receive a json object from the api
+decode it, get the latest buy and sell rates, then
+send them back a json object, but there was a problem in android studio
+*/
+
+$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t20224210';
+
+//header("Content-Type: application/json");
 
 $ch = curl_init();
 
@@ -25,13 +33,10 @@ else {
   $sell = $decoded['sell'][$sizesell-1]['1'];
 
     //specidy the type of content, which is json
-    header("Content-Type: application/json");
-    $myobj = array ('buy'=>$buy,'sell'=>$sell);
+    $myobj = $buy . " " . $sell;
 
-    //encode the array to json
-    $myjson = json_encode($myobj);
 
-    echo $myjson;
+    echo $myobj;
 
 }
 
