@@ -49,6 +49,7 @@ public class ConversionPage extends AppCompatActivity {
     TextView tv_buy;
     int buy_rate;
     String counter;
+    String url2;
 
     public class DownloadTask extends AsyncTask <String, Void, String>{
         @Override
@@ -82,23 +83,14 @@ public class ConversionPage extends AppCompatActivity {
         protected void onPostExecute (String s){
             super.onPostExecute(s);
 
-//            Log.i("onPostExecute: ", s);
             try{
-                /*
-                String[] temp = s.split(" ");
-                tv_buy.setText(temp[0]);
-                //buy_rate = Integer.parseInt(temp[0]);
 
-                tv_sell.setText(temp[1]);
-                //sell_rate = Integer.parseInt(temp[1]);
-                */
-
+                //for api that is returning json, but not working
                 /*
+                //initialize the json object
                 JSONObject json = new JSONObject(s);
 
-                Log.i("onPostExecute: ", arr.toString());
-
-
+                //get the values of buy and sell from json array and preview them in application
                 String lbp_buy = json.getString("buy");
                 Log.i("buy", String.valueOf(lbp_buy));
                 tv_buy.setText(lbp_buy);
@@ -107,7 +99,6 @@ public class ConversionPage extends AppCompatActivity {
                 Log.i("sell", String.valueOf(lbp_sell));
                 tv_sell.setText(lbp_sell);
                 */
-
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -124,11 +115,8 @@ public class ConversionPage extends AppCompatActivity {
         tv_sell = (TextView) findViewById(R.id.tv_sell);
         tv_buy = (TextView) findViewById(R.id.tv_buy);
 
-        counter = "";
-
         String url = "https://192.168.157.1:8013/Android/LiraRate.php";
 
-        String url2 = "view-source:https://localhost:8013/Android/insertintodb.php" + counter;
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
@@ -159,22 +147,23 @@ public class ConversionPage extends AppCompatActivity {
             //set the source of image
             img.setImageResource(R.drawable.hand);
 
-            Double output = 0.0;
+            int output = 0;
+            counter = "";
+            url2 = "https://localhost:8013/Android/insertintodb.php";
             if (curr.equalsIgnoreCase("usd")){ //convert to USD
-                //output = input....
+                //increment URL
+                counter += "?currency=usd&amount=" + input + "&rate=" + buy_rate;
 
-                counter += "?currency=usd&amount=" + input;
-
-                //save to database
+                output = Integer.parseInt(input.getText().toString())/buy_rate;
 
                 text_view.setText("USD" + output);
+
             }
             else if ( curr.equalsIgnoreCase("lbp")){ //convert to LBP
-                //output = input ...
+                // increment URL
+                counter += "?currency=lbp&amount=" + input + "&rate=" + buy_rate;
 
-                counter += "?currency=lbp&amount=" + input;
-                //save to database
-
+                output = Integer.parseInt(input.getText().toString())*buy_rate;
                 text_view.setText("LBP" + output);
             }
             else{
@@ -182,6 +171,15 @@ public class ConversionPage extends AppCompatActivity {
                 return;
             }
         }
+        url2 += counter;
+        try {
+            URL url_2 = new URL(url2);
+            HttpURLConnection httpConn = (HttpURLConnection) url_2.openConnection();
+            httpConn.setRequestMethod("GET");
 
+        } catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
     }
 }
