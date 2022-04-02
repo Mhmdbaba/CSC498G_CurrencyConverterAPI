@@ -45,18 +45,21 @@ public class ConversionPage extends AppCompatActivity {
     private TextView text_view;
     ImageView img;
     TextView tv_sell;
+    int sell_rate;
     TextView tv_buy;
+    int buy_rate;
+    String counter;
 
     public class DownloadTask extends AsyncTask <String, Void, String>{
         @Override
         protected String doInBackground(String... urls) {
             String result = "";
             URL url;
-            HttpsURLConnection http;
+            HttpURLConnection http;
 
             try {
                 url = new URL(urls[0]);
-                http = (HttpsURLConnection) url.openConnection();
+                http = (HttpURLConnection) url.openConnection();
 
                 //Read the output of API
                 InputStream in = http.getInputStream();
@@ -72,22 +75,30 @@ public class ConversionPage extends AppCompatActivity {
                 e.printStackTrace();
                 return null;
             }
+            Log.i("onPostExecute: ", result);
             return result;
         }
 
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-            try{
 
+//            Log.i("onPostExecute: ", s);
+            try{
+                /*
+                String[] temp = s.split(" ");
+                tv_buy.setText(temp[0]);
+                //buy_rate = Integer.parseInt(temp[0]);
+
+                tv_sell.setText(temp[1]);
+                //sell_rate = Integer.parseInt(temp[1]);
+                */
+
+                /*
                 JSONObject json = new JSONObject(s);
-                String arr = json.getString("buy");
-                //String[] arr = json.getString("buy").split(",");
-                //arr = arr[arr.length - 1].split(",");
-                //String buy = arr[1];
 
                 Log.i("onPostExecute: ", arr.toString());
 
-                /*
+
                 String lbp_buy = json.getString("buy");
                 Log.i("buy", String.valueOf(lbp_buy));
                 tv_buy.setText(lbp_buy);
@@ -113,7 +124,11 @@ public class ConversionPage extends AppCompatActivity {
         tv_sell = (TextView) findViewById(R.id.tv_sell);
         tv_buy = (TextView) findViewById(R.id.tv_buy);
 
-        String url = "https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t20224118";
+        counter = "";
+
+        String url = "https://192.168.157.1:8013/Android/LiraRate.php";
+
+        String url2 = "view-source:https://localhost:8013/Android/insertintodb.php" + counter;
         DownloadTask task = new DownloadTask();
         task.execute(url);
     }
@@ -148,6 +163,7 @@ public class ConversionPage extends AppCompatActivity {
             if (curr.equalsIgnoreCase("usd")){ //convert to USD
                 //output = input....
 
+                counter += "?currency=usd&amount=" + input;
 
                 //save to database
 
@@ -156,6 +172,7 @@ public class ConversionPage extends AppCompatActivity {
             else if ( curr.equalsIgnoreCase("lbp")){ //convert to LBP
                 //output = input ...
 
+                counter += "?currency=lbp&amount=" + input;
                 //save to database
 
                 text_view.setText("LBP" + output);
