@@ -1,5 +1,4 @@
 <?php
-include("LiraRate.php");
 
 $server = "localhost";
 $username= "root";
@@ -11,12 +10,9 @@ $conn = mysqli_connect($server, $username, $password, $db_name) or die("Connecti
 //Get the variables from the user in android studio
 $amount = $_GET["amount"];
 $currency = $_GET["currency"];
+$rate = $_GET["rate"];
 
-//decode json array in LiraRate got from scraping the website
-$decoded_r = json_decode($myjson);
 
-//getting the rate
-$rate = $decoded_r["buy"];
 $updated_amount;
 
 //preparing the query to insert in database
@@ -34,9 +30,5 @@ else{ //in case of lbp inser the updated amount in lbp column
 
 //execute the query to write variables in database
 $query->execute();
-
-//encode the updated amount to json and pass
-echo json_encode($updated_amount);
-
 
 ?>
