@@ -5,7 +5,7 @@ decode it, get the latest buy and sell rates, then
 send them back a json object, but there was a problem in android studio
 */
 
-$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t20224210';
+$url = 'https://lirarate.org/wp-json/lirarate/v2/rates?currency=LBP&_ver=t20224215';
 
 //header("Content-Type: application/json");
 

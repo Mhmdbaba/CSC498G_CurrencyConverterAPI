@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_number"
-        app:layout_constraintVertical_bias="0.110000014">
+        app:layout_constraintVertical_bias="0.101">
 
         <RadioButton
             android:id="@+id/rbtn_lbp"
@@ -58,7 +58,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.22" />
 
     <TextView
         android:id="@+id/tv_output"
@@ -73,8 +73,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="45dp"
-        android:layout_height="53dp"
+        android:layout_width="91dp"
+        android:layout_height="91dp"
         app:layout_constraintBottom_toTopOf="@+id/input_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -133,7 +133,7 @@
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.389" />
 
     <TextView
         android:id="@+id/tv_buy"

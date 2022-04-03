@@ -36,9 +36,6 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ConversionPage extends AppCompatActivity {
-
-
-
     private RadioGroup radio_group;
     private RadioButton radio_button;
     private EditText input;
@@ -82,8 +79,16 @@ public class ConversionPage extends AppCompatActivity {
 
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-
             try{
+                //get values by a string then split into array
+                String[] rates = s.split(" ");
+
+                //Display values on screen and assign to variables
+                buy_rate = Integer.parseInt(rates[0]);
+                tv_buy.setText(buy_rate);
+                sell_rate = Integer.parseInt(rates[1]);
+                tv_sell.setText(sell_rate);
+
 
                 //for api that is returning json, but not working
                 /*
@@ -149,7 +154,7 @@ public class ConversionPage extends AppCompatActivity {
 
             int output = 0;
             counter = "";
-            url2 = "https://localhost:8013/Android/insertintodb.php";
+            url2 = "https://192.168.157.1:8013/Android/insertintodb.php";
             if (curr.equalsIgnoreCase("usd")){ //convert to USD
                 //increment URL
                 counter += "?currency=usd&amount=" + input + "&rate=" + buy_rate;
